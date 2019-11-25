@@ -7,10 +7,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AddPostToTrashPOM {
+public class PublishPostPOM {
 	private WebDriver driver; 
 	
-	public AddPostToTrashPOM(WebDriver driver) {
+	public PublishPostPOM(WebDriver driver) {
 		this.driver = driver; 
 		PageFactory.initElements(driver, this);
 	}
@@ -30,16 +30,17 @@ public class AddPostToTrashPOM {
 	@FindBy(xpath="//*[@id='menu-posts']/a/div[3]")
 	private WebElement postLink;
 	
-	@FindBy(xpath="//*[@id='menu-posts']/ul/li[2]/a")
-			private WebElement allPostLink;
+	@FindBy(xpath="//*[@id='menu-posts']/ul/li[3]/a")
+	private WebElement addnew;
 	
-	@FindBy(xpath="//*[@id='post-7096']/td[1]/div[3]/span[3]/a")
-	private WebElement mouseHoverText;
+	@FindBy(xpath="//input[@id='title']")
+	private WebElement addTitle;
 	
-	@FindBy(xpath="//*[@id='message']/p/a")
-	private WebElement undoclk;
+	@FindBy(xpath="//textarea[@id='content']")
+	private WebElement addContent;
 	
-	////*[@id='post-7096']/td[1]/div[3]/span[3]/a
+	@FindBy(xpath="//input[@id='publish']")
+	private WebElement publishPost;
 	
 	public void loginRegisterClick() {
 		this.loginRegister.click(); 
@@ -63,15 +64,19 @@ public class AddPostToTrashPOM {
 		this.postLink.click(); 
 	}
 	
-	public void allPostLinkClick() {
-		this.allPostLink.click(); 
+	public void addNewClick() {
+		this.addnew.click();
 	}
 	
-	public void sendMouseHoverText(String mouseHoverVal) {
-		this.mouseHoverText.click(); 
+	public void sendTitle(String val) {
+		this.addTitle.clear(); 
+		this.addTitle.sendKeys(val); 
 	}
-	public void undoClick() {
-		this.undoclk.click(); 
+	public void sendContent(String val) {
+		this.addContent.clear(); 
+		this.addContent.sendKeys(val); 
 	}
-	
+	public void publishPostClick() {
+		this.publishPost.click(); 
+	}	
 }

@@ -7,10 +7,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AddPostToTrashPOM {
+public class AddCategoryPOM {
 	private WebDriver driver; 
 	
-	public AddPostToTrashPOM(WebDriver driver) {
+	public AddCategoryPOM(WebDriver driver) {
 		this.driver = driver; 
 		PageFactory.initElements(driver, this);
 	}
@@ -33,13 +33,23 @@ public class AddPostToTrashPOM {
 	@FindBy(xpath="//*[@id='menu-posts']/ul/li[2]/a")
 			private WebElement allPostLink;
 	
-	@FindBy(xpath="//*[@id='post-7096']/td[1]/div[3]/span[3]/a")
-	private WebElement mouseHoverText;
+	@FindBy(xpath="//*[@id='menu-posts']/ul/li[4]/a")
+		private WebElement addCategory;
 	
-	@FindBy(xpath="//*[@id='message']/p/a")
-	private WebElement undoclk;
+	@FindBy(xpath="//input[@id='tag-name']")
+	private WebElement newCatName;
 	
-	////*[@id='post-7096']/td[1]/div[3]/span[3]/a
+	@FindBy(xpath="//input[@id='tag-slug']")
+	private WebElement slugName;
+	
+	@FindBy (xpath="//textarea[@id='tag-description']")
+	private WebElement descText;
+	
+	@FindBy (xpath="//input[@id='submit']")
+	private WebElement submitbtn;
+	
+	@FindBy (xpath="//*[@id='menu-posts']/ul/li[4]/a")
+	private WebElement addCatMainPage;
 	
 	public void loginRegisterClick() {
 		this.loginRegister.click(); 
@@ -63,15 +73,27 @@ public class AddPostToTrashPOM {
 		this.postLink.click(); 
 	}
 	
-	public void allPostLinkClick() {
-		this.allPostLink.click(); 
+	public void addCategoryClick() {
+		this.addCategory.click(); 
 	}
 	
-	public void sendMouseHoverText(String mouseHoverVal) {
-		this.mouseHoverText.click(); 
+	public void sendCatName(String val) {
+		this.newCatName.clear();
+		this.newCatName.sendKeys(val);
 	}
-	public void undoClick() {
-		this.undoclk.click(); 
+	public void sendSlugName(String val) {
+		this.slugName.clear();
+		this.slugName.sendKeys(val);
+	}
+	public void sendDescText(String val) {
+		this.descText.clear();
+		this.descText.sendKeys(val);
+	}
+	public void submitBtnClick() {
+		this.submitbtn.click(); 
+	}
+	public void addCatMainPageClick() {
+		this.addCatMainPage.click(); 
 	}
 	
 }

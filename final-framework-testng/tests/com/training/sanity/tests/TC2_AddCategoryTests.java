@@ -1,4 +1,4 @@
-package com.training.regression.tests;
+package com.training.sanity.tests;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,27 +8,22 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.training.bean.LoginBean;
-import com.training.dao.ELearningDAO;
-import com.training.dataproviders.LoginDataProviders;
-import com.training.generics.GenericMethods;
 import com.training.generics.ScreenShot;
+import com.training.pom.AddCategoryPOM;
 import com.training.pom.AddPostToTrashPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class LoginDBTest {
+public class TC2_AddCategoryTests {
+
 	private WebDriver driver;
 	private String baseUrl;
-	private AddPostToTrashPOM loginPOM;
+	private AddCategoryPOM catPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
-	private GenericMethods genericMethods; 
-	
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
 		properties = new Properties();
@@ -39,33 +34,43 @@ public class LoginDBTest {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		loginPOM = new AddPostToTrashPOM(driver);
+		catPOM = new AddCategoryPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
-		screenShot = new ScreenShot(driver);
-		genericMethods = new GenericMethods(driver); 
-		// open the browser
+		screenShot = new ScreenShot(driver); 
+		// open the browser 
 		driver.get(baseUrl);
+		Thread.sleep(3000);
 	}
-
+	
 	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-
-
-	@Test(dataProvider = "db-inputs", dataProviderClass = LoginDataProviders.class)
-	public void loginDBTest(String userName, String password) {
-		// for demonstration 
-//		genericMethods.getElement("login", "id"); 
-				
-		loginPOM.sendUserName(userName);
+	@Test
+	public void validLoginTest() throws InterruptedException {
+		catPOM.loginRegisterClick();
+		Thread.sleep(2000);
+		catPOM.sendUserName("admin");
+		catPOM.sendPassword("admin@123");
+		Thread.sleep(2000);
+		catPOM.clickLoginBtn(); 
+		screenShot.captureScreenShot("MainPage");
+		catPOM.postLinkClick();
+		Thread.sleep(2000);
+		catPOM.addCategoryClick();
+		screenShot.captureScreenShot("CategoryPage");
+		catPOM.sendCatName("SHAN CATEGORY 111");
 		
-		loginPOM.sendPassword(password);
-		loginPOM.clickLoginBtn();
+		catPOM.sendSlugName("SLUG NAME 111");
+		Thread.sleep(2000);
+		catPOM.sendDescText("DESC TEXT 111");
+		Thread.sleep(2000);
+		screenShot.captureScreenShot("NewCategory");
+		Thread.sleep(2000);
+		catPOM.submitBtnClick();
+		Thread.sleep(2000);
+		catPOM.addCatMainPageClick();
 		
-		screenShot.captureScreenShot(userName);
-
 	}
-
 }
