@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.training.generics.GenericMethods;
 import com.training.generics.ScreenShot;
 import com.training.pom.AddCategoryPOM;
 import com.training.pom.AddPostToTrashPOM;
@@ -23,6 +24,7 @@ public class TC2_AddCategoryTests {
 	private AddCategoryPOM catPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	private GenericMethods genericMeth;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
@@ -37,9 +39,18 @@ public class TC2_AddCategoryTests {
 		catPOM = new AddCategoryPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
+		genericMeth = new GenericMethods(driver);
 		// open the browser 
 		driver.get(baseUrl);
-		Thread.sleep(3000);
+		Thread.sleep(4000);
+		genericMeth.assertURL(baseUrl); //Assert the url
+		Thread.sleep(2000);
+		catPOM.loginRegisterClick(); //Click on Login/Register
+		Thread.sleep(2000);
+		catPOM.sendUserName("admin");
+		catPOM.sendPassword("admin@123");
+		Thread.sleep(2000);
+		catPOM.clickLoginBtn(); //Click on Login button
 	}
 	
 	@AfterMethod
@@ -49,22 +60,18 @@ public class TC2_AddCategoryTests {
 	}
 	@Test
 	public void validLoginTest() throws InterruptedException {
-		catPOM.loginRegisterClick();
-		Thread.sleep(2000);
-		catPOM.sendUserName("admin");
-		catPOM.sendPassword("admin@123");
-		Thread.sleep(2000);
-		catPOM.clickLoginBtn(); 
 		screenShot.captureScreenShot("MainPage");
 		catPOM.postLinkClick();
+		genericMeth.assertText("Posts", AddPostToTrashPOM.postXpath, "xpath", "Posts keyword does not match with actual value");
 		Thread.sleep(2000);
 		catPOM.addCategoryClick();
+		genericMeth.assertText("Categories", AddCategoryPOM.catXpath, "xpath", "Categories keyword does not match with actual value");
 		screenShot.captureScreenShot("CategoryPage");
-		catPOM.sendCatName("SHAN CATEGORY 111");
-		
-		catPOM.sendSlugName("SLUG NAME 111");
+		catPOM.sendCatName("SHAN CATEGORY 222");
 		Thread.sleep(2000);
-		catPOM.sendDescText("DESC TEXT 111");
+		catPOM.sendSlugName("SLUG NAME 222");
+		Thread.sleep(2000);
+		catPOM.sendDescText("DESC TEXT 222");
 		Thread.sleep(2000);
 		screenShot.captureScreenShot("NewCategory");
 		Thread.sleep(2000);

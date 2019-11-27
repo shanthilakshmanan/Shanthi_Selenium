@@ -15,6 +15,8 @@ public class AddCategoryPOM {
 		PageFactory.initElements(driver, this);
 	}
 	
+	public static String catXpath="//*[@id='menu-posts']/ul/li[4]/a";
+	
 	@FindBy(xpath="//*[@id='responsive']/li[7]/a")
 	private WebElement loginRegister;
 	

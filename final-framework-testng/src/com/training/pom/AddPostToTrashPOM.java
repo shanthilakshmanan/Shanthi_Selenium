@@ -15,6 +15,15 @@ public class AddPostToTrashPOM {
 		PageFactory.initElements(driver, this);
 	}
 	
+	public static String postXpath="//*[@id='menu-posts']/a/div[3]";
+	public static String allPostXpath="//*[@id='menu-posts']/ul/li[2]/a";
+	public static String titleNewHouseXpath;
+	public static String trashNewHouseXpath="//*[@id='post-7096']/td[1]/div[3]/span[3]/a";
+	
+	public void setTitleXpath(String title) {
+		titleNewHouseXpath="//a[contains(text(),'"+ title +"')]";
+	}
+	
 	@FindBy(xpath="//*[@id='responsive']/li[7]/a")
 	private WebElement loginRegister;
 	
@@ -28,16 +37,17 @@ public class AddPostToTrashPOM {
 	private WebElement loginBtn; 
 	
 	@FindBy(xpath="//*[@id='menu-posts']/a/div[3]")
-	private WebElement postLink;
+	public WebElement postLink;
 	
 	@FindBy(xpath="//*[@id='menu-posts']/ul/li[2]/a")
 			private WebElement allPostLink;
 	
 	@FindBy(xpath="//*[@id='post-7096']/td[1]/div[3]/span[3]/a")
-	private WebElement mouseHoverText;
+	private WebElement trashNewHouse;
 	
 	@FindBy(xpath="//*[@id='message']/p/a")
 	private WebElement undoclk;
+	
 	
 	////*[@id='post-7096']/td[1]/div[3]/span[3]/a
 	
@@ -49,6 +59,8 @@ public class AddPostToTrashPOM {
 		this.userName.clear();
 		this.userName.sendKeys(userName);
 	}
+	
+	
 	
 	public void sendPassword(String password) {
 		this.password.clear(); 
@@ -67,11 +79,14 @@ public class AddPostToTrashPOM {
 		this.allPostLink.click(); 
 	}
 	
-	public void sendMouseHoverText(String mouseHoverVal) {
-		this.mouseHoverText.click(); 
-	}
+//	public void sendMouseHoverText(String mouseHoverVal) {
+//		this.mouseHoverText.click(); 
+//	}
 	public void undoClick() {
 		this.undoclk.click(); 
+	}
+	public void trashClick() {
+		this.trashNewHouse.click(); 
 	}
 	
 }
