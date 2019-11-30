@@ -8,6 +8,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -116,43 +117,12 @@ public class GenericMethods {
         WebElement Element = driver.findElement(By.linkText(linkTxt));
         js.executeScript("arguments[0].scrollIntoView();", Element);
         */
-		WebElement element = driver.findElement(By.xpath(locator));
 		Actions actions = new Actions(driver);
+		WebElement element = driver.findElement(By.xpath(locator));
 		actions.moveToElement(element);
 		Thread.sleep(2000);
 		actions.perform();
 	}
-
-public void assertTextOld(String expectedText, String locator, String type, String msg) {
-		type = type.toLowerCase();
-		
-		if(type.equals("id")){
-			String actualText = driver.findElement(By.id(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("class")){
-			String actualText = driver.findElement(By.className(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("name")){
-			String actualText = driver.findElement(By.name(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("xpath")){
-			String actualText = driver.findElement(By.xpath(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("css")){
-			String actualText = driver.findElement(By.cssSelector(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("tagname")){
-			String actualText = driver.findElement(By.tagName(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("linktext")){
-			String actualText = driver.findElement(By.linkText(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}else if(type.equals("partiallinktext")){
-			String actualText = driver.findElement(By.partialLinkText(locator)).getText();
-			Assert.assertTrue(actualText.equals(expectedText),msg );
-		}
-		
-	} 
 
 	//AssertURl - getUrl()
 	public void assertURL(String expectedURL) {
@@ -255,5 +225,22 @@ public void assertTextOld(String expectedText, String locator, String type, Stri
 				"The assertion failed as the expected Title did not match with actual Title");
 		s.assertAll();
 	}
-
+	/**
+	 * select drop down by Visible Text 
+	 * @param xpathVal
+	 * @param ddVal
+	 */
+	public void selectDropDownByVisibleText(String xpathVal, String ddVal) {
+		Select drpDwn= new Select(driver.findElement(By.xpath(xpathVal)));
+		drpDwn.selectByVisibleText(ddVal);
+	}
+	public void selectDropDownByVisibleTextRegion(String xpathVal, String ddVal) {
+		WebElement regnEle= driver.findElement(By.xpath(xpathVal));
+		regnEle.click();
+		Select drpDwn = new Select(driver.findElement(By.xpath(xpathVal)));
+		drpDwn.selectByVisibleText("   West Bangalore");
+	}
+	public void refreshPage() {
+		driver.navigate().refresh();
+	}
 }

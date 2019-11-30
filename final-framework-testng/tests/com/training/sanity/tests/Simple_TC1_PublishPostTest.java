@@ -18,7 +18,7 @@ import com.training.pom.PublishPostPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC1_PublishPostTest {
+public class Simple_TC1_PublishPostTest {
 
 	private WebDriver driver;
 	private String baseUrl;

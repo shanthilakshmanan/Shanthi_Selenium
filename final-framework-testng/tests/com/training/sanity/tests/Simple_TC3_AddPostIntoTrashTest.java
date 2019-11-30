@@ -17,7 +17,7 @@ import com.training.pom.AddPostToTrashPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class TC3_AddPostIntoTrashTest {
+public class Simple_TC3_AddPostIntoTrashTest {
 
 	private WebDriver driver;
 	private String baseUrl;
